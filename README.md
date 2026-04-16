@@ -1,0 +1,2 @@
+-L'importo può essere un decimal/double
+- Ho delle immagine in una cartella img con 3 file "SFONDO_1","SFONDO_2","SFONDO_3" voglio che siano lo sfondo di tutta la parte main e che si alternino ogni volta che l'utente clicca su tasto aggiungi

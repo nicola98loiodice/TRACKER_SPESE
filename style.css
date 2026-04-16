@@ -1,0 +1,97 @@
+:root {
+    --bg-main: #0F172A;
+    --bg-card: #1E293B;
+    --primary: #38BDF8;
+    --accent: #A78BFA;
+    --text: #E2E8F0;
+    --danger: #EF4444;
+}
+
+/* BODY */
+body {
+    background-color: var(--bg-main);
+    color: var(--text);
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: #020617 !important;
+}
+
+/* HEADER */
+header {
+    min-height: 200px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.5s ease-in-out;
+}
+
+/* overlay scuro per leggibilità */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.6);
+}
+
+header > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* CARD */
+.card {
+    background-color: var(--bg-card);
+    color: var(--text);
+    border: none;
+    border-radius: 12px;
+}
+
+/* INPUT */
+.form-control,
+.form-select {
+    background-color: #020617;
+    color: var(--text);
+    border: 1px solid #334155;
+}
+
+.form-control::placeholder {
+    color: #94A3B8;
+}
+
+/* TABELLA */
+.table {
+    color: var(--text);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #020617;
+}
+
+/* BOTTONI */
+.btn-success {
+    background-color: var(--primary);
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #0ea5e9;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    border: none;
+}
+
+.btn-warning {
+    background-color: var(--accent);
+    border: none;
+    color: white;
+}
+
+/* HOVER ROW */
+tbody tr:hover {
+    background-color: rgba(56, 189, 248, 0.1);
+    transition: 0.2s;
+}

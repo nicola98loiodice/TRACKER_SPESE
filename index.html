@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css">
+    </head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="img/icons8-spese-50.png" alt="Bootstrap" width="50" height="50">
+            </a>
+        </div>
+    </nav>
+
+        <header class="bg-primary text-white p-3 mb-4">
+        <div class="container">
+            <h1 class="text-center">TRACKER</h1>
+        </div>
+    </header>
+ <main class="container-fluid">
+
+        <!-- FORM -->
+        <section class="mb-4" data-aos="fade-up">
+            <h3>Aggiungi Spesa</h3>
+            <form id="expense-form" class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" id="description" class="form-control" placeholder="Descrizione" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" id="amount" class="form-control" step="0.01" placeholder="Importo" required>
+                </div>
+                <div class="col-md-2">
+                    <select id="category" class="form-select" required>
+                        <option value="">Categoria</option>
+                        <option>Casa</option>
+                        <option>Cibo</option>
+                        <option>Trasporti</option>
+                        <option>Tempo libero</option>
+                        <option>Salute</option>
+                        <option>Altro</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="date" id="date" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success w-100">Aggiungi</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- RIEPILOGO -->
+        <section class="mb-4" data-aos="fade-up">
+            <div class="row text-center">
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <h5>Totale Spese</h5>
+                        <h3 id="total">€0</h3>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card p-3">
+                        <h5>Numero Spese</h5>
+                        <h3 id="count">0</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FILTRI -->
+        <section class="mb-4" data-aos="fade-up">
+            <input type="text" id="search" class="form-control" placeholder="Cerca per descrizione...">
+        </section>
+
+        <!-- LISTA SPESE -->
+        <section data-aos="fade-up" >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Descrizione</th>
+                        <th>Importo</th>
+                        <th>Categoria</th>
+                        <th>Data</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-list"></tbody>
+            </table>
+        </section>
+
+    </main>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+  AOS.init();
+</script>
+    <script src="script.js"></script>
+</body>
+
+</html>
