@@ -7,27 +7,38 @@
     --danger: #EF4444;
 }
 
-/* BODY */
+/* =======================
+   BODY
+======================= */
 body {
     background-color: var(--bg-main);
     color: var(--text);
 }
 
-/* NAVBAR */
+/* =======================
+   NAVBAR
+======================= */
 .navbar {
     background-color: #020617 !important;
 }
 
-/* HEADER */
+/* =======================
+   HEADER
+======================= */
 header {
-    min-height: 200px;
+    min-height: 120px;
     position: relative;
     background-size: cover;
     background-position: center;
     transition: background-image 0.5s ease-in-out;
 }
 
-/* overlay scuro per leggibilità */
+@media (min-width: 768px) {
+    header {
+        min-height: 200px;
+    }
+}
+
 header::before {
     content: "";
     position: absolute;
@@ -40,7 +51,9 @@ header > * {
     z-index: 1;
 }
 
-/* CARD */
+/* =======================
+   CARD
+======================= */
 .card {
     background-color: var(--bg-card);
     color: var(--text);
@@ -48,7 +61,17 @@ header > * {
     border-radius: 12px;
 }
 
-/* INPUT */
+.card h5 {
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+}
+
+.card h3 {
+    font-size: clamp(1.2rem, 4vw, 1.75rem);
+}
+
+/* =======================
+   FORM
+======================= */
 .form-control,
 .form-select {
     background-color: #020617;
@@ -60,16 +83,12 @@ header > * {
     color: #94A3B8;
 }
 
-/* TABELLA */
-.table {
-    color: var(--text);
+section h3 {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: 0.75rem;
 }
 
-.table-striped > tbody > tr:nth-of-type(odd) {
-    background-color: #020617;
-}
-
-/* BOTTONI */
+/* bottoni */
 .btn-success {
     background-color: var(--primary);
     border: none;
@@ -90,8 +109,63 @@ header > * {
     color: white;
 }
 
-/* HOVER ROW */
-tbody tr:hover {
-    background-color: rgba(56, 189, 248, 0.1);
+
+
+
+.table {
+    color: var(--text);
+    background-color: transparent;
+    border-color: #334155;
+    margin-bottom: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    min-width: 480px;
+}
+
+/* Wrapper scrollabile */
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Testo celle più piccolo su mobile */
+@media (max-width: 576px) {
+    .table td,
+    .table th {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.5rem;
+    }
+
+    .btn-sm {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+/* HEADER TABELLA */
+.table thead {
+    background-color: #020617;
+    color: var(--primary);
+}
+
+/* RIGHE */
+.table tbody tr {
+    background-color: #1E293B;
     transition: 0.2s;
+}
+
+/* RIGHE ALTERNATE */
+.table tbody tr:nth-child(odd) {
+    background-color: #0F172A;
+}
+
+/* HOVER */
+.table tbody tr:hover {
+    background-color: rgba(56, 189, 248, 0.15);
+}
+
+/* CELLE */
+.table td,
+.table th {
+    border-color: #334155;
 }
