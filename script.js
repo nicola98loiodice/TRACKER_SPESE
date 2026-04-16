@@ -83,7 +83,111 @@ function updateChart() {
     categoryChart.data.datasets[0].data = totals;
     categoryChart.update();
 }
-// fine chart
+// ---- FINE CHART ----
+
+
+// chart linechart
+const weeklyCtx = document.getElementById("weeklyChart").getContext("2d");
+
+const weeklyChart = new Chart(weeklyCtx, {
+    type: "line",
+    data: {
+        labels: [],
+        datasets: [{
+            label: "Spese settimanali (€)",
+            data: [],
+            borderColor: "#38BDF8",
+            backgroundColor: "rgba(56,189,248,0.2)",
+            tension: 0.3,
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: "#38BDF8"
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: { color: "#E2E8F0" }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: "#E2E8F0" },
+                grid: { color: "#334155" }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    color: "#E2E8F0",
+                    callback: val => "€ " + val
+                },
+                grid: { color: "#334155" }
+            }
+        }
+    }
+});
+function getWeekNumber(dateStr) {
+    const date = new Date(dateStr);
+    const firstDay = new Date(date.getFullYear(), 0, 1);
+    const pastDays = Math.floor((date - firstDay) / (24 * 60 * 60 * 1000));
+    return Math.ceil((pastDays + firstDay.getDay() + 1) / 7);
+}
+function updateWeeklyChart() {
+    const weeklyTotals = {};
+
+    expenses.forEach(exp => {
+        const week = getWeekNumber(exp.date);
+        const year = new Date(exp.date).getFullYear();
+        const key = `${year}-W${week}`;
+
+        if (!weeklyTotals[key]) {
+            weeklyTotals[key] = 0;
+        }
+
+        weeklyTotals[key] += exp.amount;
+    });
+
+    const labels = Object.keys(weeklyTotals).sort();
+    const data = labels.map(label => weeklyTotals[label]);
+
+    weeklyChart.data.labels = labels;
+    weeklyChart.data.datasets[0].data = data;
+    weeklyChart.update();
+}
+
+// ---- MODALE MODIFICA ----
+let editIndex = null;
+
+function openEditModal(index) {
+    editIndex = index;
+    const exp = expenses[index];
+    document.getElementById("edit-description").value = exp.description;
+    document.getElementById("edit-amount").value = exp.amount;
+    document.getElementById("edit-category").value = exp.category;
+    document.getElementById("edit-date").value = exp.date;
+    const editModal = bootstrap.Modal.getOrCreateInstance(document.getElementById("editModal"));
+    editModal.show();
+}
+
+document.getElementById("save-edit-btn").addEventListener("click", function () {
+    const description = document.getElementById("edit-description").value.trim();
+    const amount = parseFloat(document.getElementById("edit-amount").value);
+    const category = document.getElementById("edit-category").value;
+    const date = document.getElementById("edit-date").value;
+
+    if (!description || !category || !date || amount <= 0) {
+        alert("Compila tutti i campi correttamente");
+        return;
+    }
+
+    expenses[editIndex] = { description, amount, category, date };
+    saveData();
+    renderExpenses();
+    const editModal = bootstrap.Modal.getOrCreateInstance(document.getElementById("editModal"));
+    editModal.hide();
+});
+// ---- FINE MODALE ----
 
 // salva i dati
 function saveData() {
@@ -141,7 +245,10 @@ function renderExpenses() {
                 <td>€ ${exp.amount.toFixed(2)}</td>
                 <td>${exp.category}</td>
                 <td>${exp.date}</td>
-                <td>
+                <td class="actions-cell">
+                    <button class="btn btn-edit btn-sm" onclick="openEditModal(${index})">
+                        Modifica
+                    </button>
                     <button class="btn btn-danger btn-sm" onclick="deleteExpense(${index})">
                         Elimina
                     </button>
@@ -156,6 +263,7 @@ function renderExpenses() {
     countEl.textContent = expenses.length;
 
     updateChart();
+    updateWeeklyChart();
 }
 
 // elimina

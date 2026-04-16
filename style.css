@@ -7,24 +7,15 @@
     --danger: #EF4444;
 }
 
-/* =======================
-   BODY
-======================= */
+
 body {
     background-color: var(--bg-main);
     color: var(--text);
 }
 
-/* =======================
-   NAVBAR
-======================= */
-.navbar {
-    background-color: #020617 !important;
-}
 
-/* =======================
-   HEADER
-======================= */
+
+
 header {
     min-height: 120px;
     position: relative;
@@ -51,9 +42,7 @@ header > * {
     z-index: 1;
 }
 
-/* =======================
-   CARD
-======================= */
+
 .card {
     background-color: var(--bg-card);
     color: var(--text);
@@ -69,9 +58,7 @@ header > * {
     font-size: clamp(1.2rem, 4vw, 1.75rem);
 }
 
-/* =======================
-   FORM
-======================= */
+/* form */
 .form-control,
 .form-select {
     background-color: #020617;
@@ -111,7 +98,7 @@ section h3 {
 
 
 
-
+/* table */
 .table {
     color: var(--text);
     background-color: transparent;
@@ -125,7 +112,7 @@ section h3 {
 /* Wrapper scrollabile */
 .table-responsive {
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
 }
 
 /* Testo celle più piccolo su mobile */
@@ -168,4 +155,76 @@ section h3 {
 .table td,
 .table th {
     border-color: #334155;
+}
+/* modale */
+.modal-content {
+    background-color: var(--bg-card);
+    color: var(--text);
+    border: 1px solid #334155;
+    border-radius: 16px;
+}
+
+.modal-header {
+    background-color: #020617;
+    border-bottom: 1px solid #334155;
+    border-radius: 16px 16px 0 0;
+}
+
+.modal-footer {
+    background-color: #020617;
+    border-top: 1px solid #334155;
+    border-radius: 0 0 16px 16px;
+}
+
+.modal-title {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.form-label {
+    color: #94A3B8;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+/* Bottone Salva */
+.btn-save {
+    background-color: var(--primary);
+    color: #0F172A;
+    border: none;
+    font-weight: 600;
+}
+
+.btn-save:hover {
+    background-color: #0ea5e9;
+    color: #0F172A;
+}
+
+/* Bottone Annulla */
+.btn-cancel {
+    background-color: #334155;
+    color: var(--text);
+    border: none;
+}
+
+.btn-cancel:hover {
+    background-color: #475569;
+    color: var(--text);
+}
+
+/* Bottone Modifica */
+.btn-edit {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    margin-right: 4px;
+}
+
+.btn-edit:hover {
+    background-color: #9061f9;
+    color: white;
+}
+
+.actions-cell {
+    white-space: nowrap;
 }
