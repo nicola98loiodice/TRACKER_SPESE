@@ -19,6 +19,72 @@ let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 // prima imm per header prima che parta funzione 
 header.style.backgroundImage = `url('${backgrounds[0]}')`;
 
+// ---- CHART ----
+const CATEGORY_COLORS = {
+    "Casa":          "#38BDF8",
+    "Cibo":          "#A78BFA",
+    "Trasporti":     "#34D399",
+    "Tempo libero":  "#FBBF24",
+    "Salute":        "#F87171",
+    "Altro":         "#94A3B8"
+};
+
+const CATEGORIES = ["Casa", "Cibo", "Trasporti", "Tempo libero", "Salute", "Altro"];
+
+const ctx = document.getElementById("categoryChart").getContext("2d");
+
+const categoryChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: CATEGORIES,
+        datasets: [{
+            label: "Totale (€)",
+            data: new Array(CATEGORIES.length).fill(0),
+            backgroundColor: CATEGORIES.map(c => CATEGORY_COLORS[c] + "CC"),
+            borderColor:     CATEGORIES.map(c => CATEGORY_COLORS[c]),
+            borderWidth: 2,
+            borderRadius: 8,
+            borderSkipped: false,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ` € ${ctx.parsed.y.toFixed(2)}`
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: "#E2E8F0" },
+                grid:  { color: "#334155" }
+            },
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    color: "#E2E8F0",
+                    callback: val => "€ " + val
+                },
+                grid: { color: "#334155" }
+            }
+        }
+    }
+});
+
+function updateChart() {
+    const totals = CATEGORIES.map(cat =>
+        expenses
+            .filter(e => e.category === cat)
+            .reduce((sum, e) => sum + e.amount, 0)
+    );
+    categoryChart.data.datasets[0].data = totals;
+    categoryChart.update();
+}
+// fine chart
+
 // salva i dati
 function saveData() {
     localStorage.setItem("expenses", JSON.stringify(expenses));
@@ -53,9 +119,9 @@ form.addEventListener("submit", function (e) {
 
     expenses.push(newExpense);
 
-    saveData();          // salva
-    renderExpenses();    // aggiorna UI
-    changeHeaderBackground(); // cambia header
+    saveData();
+    renderExpenses();
+    changeHeaderBackground();
 
     form.reset();
 });
@@ -88,16 +154,15 @@ function renderExpenses() {
 
     totalEl.textContent = "€ " + total.toFixed(2);
     countEl.textContent = expenses.length;
+
+    updateChart();
 }
 
 // elimina
-
 function deleteExpense(index) {
     expenses.splice(index, 1);
-
-    saveData();       //  aggiorna storage
-    renderExpenses(); //  aggiorna UI
+    saveData();
+    renderExpenses();
 }
-
 
 renderExpenses();
